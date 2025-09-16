@@ -3,7 +3,7 @@ package db
 import "testing"
 
 func TestNewSet(t *testing.T) {
-	set := NewSet()
+	set := NewSet[int]()
 	if set.items == nil {
 		t.Fatalf("uninitialized map in new set")
 	}
@@ -40,7 +40,7 @@ func TestSet_Add(t *testing.T) {
 		},
 	}
 
-	set := NewSet()
+	set := NewSet[int]()
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			set.Add(tc.add)

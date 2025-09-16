@@ -5,21 +5,17 @@ import (
 	"maps"
 )
 
-// TODO: reimplement Set using generics.
-// Also look up if an interface exists for a Set data structure
-// that is more widely used and implement to the interface
-
-type Set struct {
-	items map[int]struct{}
+type Set[T comparable] struct {
+	items map[T]struct{}
 }
 
-func NewSet() *Set {
-	return &Set{
-		items: make(map[int]struct{}),
+func NewSet[T comparable]() *Set[T] {
+	return &Set[T]{
+		items: make(map[T]struct{}),
 	}
 }
 
-func (s *Set) Add(items ...int) {
+func (s *Set[T]) Add(items ...T) {
 	for _, item := range items {
 		if !s.Contains(item) {
 			s.items[item] = struct{}{}
@@ -27,27 +23,27 @@ func (s *Set) Add(items ...int) {
 	}
 }
 
-func (s *Set) Contains(item int) bool {
+func (s *Set[T]) Contains(item T) bool {
 	_, ok := s.items[item]
 	return ok
 }
 
-func (s *Set) Items() iter.Seq[int] {
+func (s *Set[T]) Items() iter.Seq[T] {
 	return maps.Keys(s.items)
 }
 
-func (s *Set) Len() int {
+func (s *Set[T]) Len() int {
 	return len(s.items)
 }
 
-func (s *Set) IsEmpty() bool {
+func (s *Set[T]) IsEmpty() bool {
 	return s.Len() == 0
 }
 
-func (s *Set) Remove(item int) {
+func (s *Set[T]) Remove(item T) {
 	delete(s.items, item)
 }
 
-func (s *Set) Clear() {
+func (s *Set[T]) Clear() {
 	clear(s.items)
 }

@@ -120,13 +120,13 @@ func (d *Database) isKeyDeleteRequested(id int) bool {
 }
 
 type txn struct {
-	keysToDelete *Set
+	keysToDelete *Set[int]
 	keysToUpdate map[int]string
 }
 
 func newTxn() *txn {
 	return &txn{
-		keysToDelete: NewSet(),
+		keysToDelete: NewSet[int](),
 		keysToUpdate: make(map[int]string),
 	}
 }
